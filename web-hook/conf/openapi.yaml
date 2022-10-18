@@ -3,7 +3,7 @@ servers:
   - description: Local environment
     url: http://localhost
   - description: Demo environment
-    url: https://webhook.mc.cloudnautique.com
+    url: http://webhook.mc.cloudnautique.com
 tags:
   - name: Webhooks management
   - name: Data handling
