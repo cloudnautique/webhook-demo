@@ -1,12 +1,19 @@
-FROM node:16-alpine
+FROM node:16-alpine as base
 WORKDIR /app
 
 ARG APP_VERSION
 ENV APP_VERSION $APP_VERSION
 
-COPY package.json package-lock.json .
+COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+
+FROM base as dev
+
+EXPOSE 3000
+CMD ["npm", "run", "start"]
+
+FROM base as prod
 RUN npm run build
 
 ENV NODE_ENV production

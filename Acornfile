@@ -48,10 +48,21 @@ containers: {
     }
 
     www: {
-        build: "./www"
+        build: {
+            context: "./www",
+            target: std.ifelse(args.dev, "dev", "prod")
+        }
         dependsOn: ["nats", "mongo"]
         probe: "http://localhost:3000"
         ports: "3000/http"
+        if args.dev {
+            dirs: "/app": "./www/"
+            command: [
+                "npm",
+                "run",
+                "dev"
+            ]
+        }
     }
 }
 
